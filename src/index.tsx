@@ -3,22 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloProvider } from 'react-apollo'
 import ApoloCiient, { gql } from 'apollo-boost'
 
 const client = new ApoloCiient({ uri : 'http://localhost:4000/graphql' })
-const query = gql`{
-  totalUsers
-}`
+// const query = gql`{
+//   totalUsers
+// }`
 
-console.log(`cache`, client.extract())
-client.query({query})
-  .then(({data}) => console.log(`data`, data))
-  .catch(console.error)
+// console.log(`cache`, client.extract())
+// client.query({query})
+//   .then(({data}) => console.log(`data`, data))
+//   .catch(console.error)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
