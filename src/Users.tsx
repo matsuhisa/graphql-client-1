@@ -1,7 +1,6 @@
 import React from 'react'
 import { gql, useQuery, useMutation } from '@apollo/client'
 
-
 const ROOT_QUERY = gql`
   query allUsers {
     totalUsers
@@ -24,7 +23,11 @@ mutation addFakeUsers($count:Int!) {
 
 export const Users = () => {
   const { loading, error, data, refetch } = useQuery(ROOT_QUERY)
-  const [ addFakeUser ] = useMutation(ADD_FAKE_USERS_MUTATION)
+  const [ addFakeUser ] = useMutation(ADD_FAKE_USERS_MUTATION, {
+    onCompleted() {
+      refetch()
+    }
+  })
   let input: any
 
   if (loading) return <p>Loading...</p>
@@ -36,7 +39,7 @@ export const Users = () => {
       <input ref={ node => { input = node } } />
       <button onClick={ () => { 
         addFakeUser({ variables: { count: Number(input.value) } })
-        input.value = 0
+        input.value = 1
       }}> Add FakeUser</button>
       <p>
         {data.allUsers.length}
