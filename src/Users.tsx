@@ -13,18 +13,22 @@ const ROOT_QUERY = gql`
 `
 
 export const Users = () => {
-  const { loading, error, data } = useQuery(ROOT_QUERY)
+  const { loading, error, data, refetch } = useQuery(ROOT_QUERY)
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>error...</p>
 
   return (
     <>
+      <button onClick={() => refetch()}>Refetch!</button>
+      <p>
+        {data.allUsers.length}
+      </p>
       {data.allUsers.map( (user: { name: any, avatar: any, githubLogin: any }) => 
         <p key={user.githubLogin}>
           {user.name}
           <br />
-          {user.avatar}
+          <img src={user.avatar} width={48} height={48} />
         </p>
       )}
     </>
