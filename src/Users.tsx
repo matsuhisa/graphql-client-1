@@ -1,17 +1,32 @@
 import React from 'react'
-import { Query } from 'react-apollo'
-import { ROOT_QUERY } from './App'
+import { gql, useQuery } from '@apollo/client'
 
-const Users = () => (
-  <Query query={ROOT_QUERY}>
-    {
-      (result: any) => {
-        return(
-          <p>Users are loading: {result.loading ? "yes":"no"}</p>
-        )
-      }
+const ROOT_QUERY = gql`
+  query allUsers {
+    totalUsers
+    allUsers {
+      githubLogin
+      name
+      avatar
     }
-  </Query>
-)
+  }
+`
 
-export default Users
+export const Users = () => {
+  const { loading, error, data } = useQuery(ROOT_QUERY)
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>error...</p>
+
+  return (
+    <>
+      {data.allUsers.map( (user: { name: any, avatar: any, githubLogin: any }) => 
+        <p key={user.githubLogin}>
+          {user.name}
+          <br />
+          {user.avatar}
+        </p>
+      )}
+    </>
+  )
+}
