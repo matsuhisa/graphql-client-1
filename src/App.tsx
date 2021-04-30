@@ -1,6 +1,13 @@
 import React from 'react'
 import { Users } from './Users'
+import { BrowserRouter } from 'react-router-dom'
 
-const App = () => <Users />
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Users />
+    </BrowserRouter>
+  )
+}
 
 export default App
