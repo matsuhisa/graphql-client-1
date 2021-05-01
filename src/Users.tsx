@@ -1,25 +1,6 @@
 import React from 'react'
-import { gql, useQuery, useMutation } from '@apollo/client'
-
-const ROOT_QUERY = gql`
-  query allUsers {
-    totalUsers
-    allUsers {
-      githubLogin
-      name
-      avatar
-    }
-  }
-`
-const ADD_FAKE_USERS_MUTATION = gql`
-mutation addFakeUsers($count:Int!) {
-  addFakeUsers(count: $count) {
-    githubLogin
-    name
-    avatar
-  }
-}
-`
+import { useQuery, useMutation } from '@apollo/client'
+import { ROOT_QUERY, ADD_FAKE_USERS_MUTATION } from './Gql'
 
 export const Users = () => {
   const { loading, error, data, refetch } = useQuery(ROOT_QUERY)
