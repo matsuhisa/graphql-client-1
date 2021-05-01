@@ -8,6 +8,8 @@ class AuthorizedUser extends React.Component<Props> {
   state = { signingIn: false }
 
   componentDidMount() {
+    console.log('componentDidMount')
+    console.log(window.location.search.match(/code=/))
     if(window.location.search.match(/code=/)) {
       this.setState({ signingIn: true })
       const code = window.location.search.replace("?code=", "")
