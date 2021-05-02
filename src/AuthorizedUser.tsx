@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+import { GTIHUB_AUTH_MUTATION } from './Gql'
 
 interface Props extends RouteComponentProps {}
 
 const AuthorizedUserButton: React.VFC<Props> = (props) => {
   const [signIn, setSignIn] =  useState(false)
+  const [ githubAuth ] = useMutation(GTIHUB_AUTH_MUTATION, {})
 
   // componentDidMount の代わり。useEffect の実行条件をつけている
   useEffect(() => {
@@ -12,6 +15,7 @@ const AuthorizedUserButton: React.VFC<Props> = (props) => {
       const code = window.location.search.replace('?code=', '')
       alert(code)
       setSignIn(true)
+      githubAuth({ variables: { code: code } })
       props.history.replace('/')
     }
   }, [1])
