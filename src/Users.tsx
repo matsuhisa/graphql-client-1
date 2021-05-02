@@ -29,7 +29,7 @@ export const Users = () => {
         <p key={user.githubLogin}>
           {user.name}
           <br />
-          <img src={user.avatar} width={48} height={48} />
+          <img src={user.avatar} width={48} height={48} alt="" />
         </p>
       )}
     </>
