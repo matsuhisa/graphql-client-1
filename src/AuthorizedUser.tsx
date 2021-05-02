@@ -7,7 +7,13 @@ interface Props extends RouteComponentProps {}
 
 const AuthorizedUserButton: React.VFC<Props> = (props) => {
   const [signIn, setSignIn] =  useState(false)
-  const [ githubAuth ] = useMutation(GTIHUB_AUTH_MUTATION, {})
+  const [ githubAuth ] = useMutation(GTIHUB_AUTH_MUTATION, {
+    onCompleted(data) {
+      localStorage.setItem('token', data.githubAuth.token)
+      props.history.replace('/')
+      setSignIn(true)
+    }
+  })
 
   // componentDidMount の代わり。useEffect の実行条件をつけている
   useEffect(() => {
