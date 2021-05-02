@@ -9,7 +9,7 @@ const AuthorizedUserButton: React.VFC<Props> = (props) => {
   const [signIn, setSignIn] =  useState(false)
   const [ githubAuth ] = useMutation(GTIHUB_AUTH_MUTATION, {
     onCompleted(data) {
-      localStorage.setItem('token', data.githubAuth.token)
+      sessionStorage.setItem('token', data.githubAuth.token)
       props.history.replace('/')
       setSignIn(true)
     }
