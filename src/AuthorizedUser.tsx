@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
-import { GTIHUB_AUTH_MUTATION } from './Gql'
+import { GTIHUB_AUTH_MUTATION, ROOT_QUERY } from './Gql'
 
 interface Props extends RouteComponentProps {}
 
